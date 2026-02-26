@@ -285,4 +285,12 @@ const styles = StyleSheet.create({
     padding: 16, borderRadius: 14, borderWidth: 1.5, marginTop: 32,
   },
   logoutText: { fontSize: 16, fontWeight: '700' },
+  aboutCard: {
+    flexDirection: 'row', alignItems: 'center', gap: 14,
+    padding: 18, borderRadius: 14, borderWidth: 1, marginTop: 20,
+  },
+  aboutInfo: { flex: 1 },
+  aboutTitle: { fontSize: 16, fontWeight: '700' },
+  aboutSub: { fontSize: 13, fontWeight: '500', marginTop: 3 },
+  aboutVersion: { fontSize: 12, marginTop: 2, opacity: 0.7 },
 });
