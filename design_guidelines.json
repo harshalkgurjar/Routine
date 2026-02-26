@@ -1,0 +1,161 @@
+{
+  "project_name": "RoutineTrack",
+  "version": "1.0.0",
+  "persona": {
+    "identity": "E1",
+    "mission": "Create a Swiss-style, high-contrast, minimalist productivity app that fuses digital precision with calm routine.",
+    "core_principles": [
+      "Fusion over Imitation: Swiss Print Design x Digital Product.",
+      "Emotion First: Every interaction should feel 'crisp' and 'rewarding'.",
+      "Content is King: Data is the hero. Remove unnecessary chrome.",
+      "Negative Space: Use whitespace to separate days and tasks, not lines."
+    ]
+  },
+  "setup_instructions": [
+    "CRITICAL: This project requires NativeWind for styling. Run the following commands immediately:",
+    "yarn add nativewind tailwindcss react-native-reanimated react-native-safe-area-context",
+    "npx tailwindcss init",
+    "Configure babel.plugins in babel.config.js: ['nativewind/babel']",
+    "Create tailwind.config.js with content: ['./app/**/*.{js,jsx,ts,tsx}', './components/**/*.{js,jsx,ts,tsx}']",
+    "Create global.css and import it in the root _layout file."
+  ],
+  "design_system": {
+    "colors": {
+      "palette_name": "Swiss Blue Precision",
+      "mode_strategy": "System (Auto)",
+      "light": {
+        "background": "#FDFDFD",
+        "surface": "#FFFFFF",
+        "surface_highlight": "#F4F4F5",
+        "text_primary": "#09090B",
+        "text_secondary": "#52525B",
+        "border": "#E4E4E7",
+        "primary": "#0047FF",
+        "primary_foreground": "#FFFFFF",
+        "destructive": "#EF4444",
+        "success": "#22C55E"
+      },
+      "dark": {
+        "background": "#000000",
+        "surface": "#09090B",
+        "surface_highlight": "#18181B",
+        "text_primary": "#FAFAFA",
+        "text_secondary": "#A1A1AA",
+        "border": "#27272A",
+        "primary": "#3B82F6",
+        "primary_foreground": "#FFFFFF",
+        "destructive": "#F87171",
+        "success": "#4ADE80"
+      }
+    },
+    "typography": {
+      "font_family_heading": "DM Sans, System",
+      "font_family_body": "Inter, System",
+      "font_family_code": "JetBrains Mono, monospace",
+      "scale": {
+        "h1": "text-4xl font-bold tracking-tight",
+        "h2": "text-3xl font-semibold tracking-tight",
+        "h3": "text-2xl font-semibold",
+        "body_lg": "text-lg font-medium",
+        "body_base": "text-base leading-relaxed",
+        "caption": "text-xs text-muted-foreground uppercase tracking-widest"
+      }
+    },
+    "spacing": {
+      "base_unit": 4,
+      "container_padding": "p-6",
+      "section_gap": "gap-8",
+      "item_gap": "gap-4"
+    },
+    "borders": {
+      "radius_card": "rounded-xl",
+      "radius_button": "rounded-lg",
+      "radius_input": "rounded-md",
+      "width_standard": "border",
+      "width_thick": "border-2"
+    }
+  },
+  "layout_strategies": {
+    "universal_rules": [
+      "Mobile-First: All layouts must be thumb-friendly.",
+      "Touch Targets: Minimum 44x44pt for all interactive elements.",
+      "Safe Area: Respect top and bottom safe areas using SafeAreaView.",
+      "Keyboard: Wrap forms in KeyboardAvoidingView with behavior='padding'.",
+      "Tab Navigation: Use Expo Router tabs with a translucent blur effect."
+    ],
+    "specific_screens": {
+      "today_screen": {
+        "layout": "vertical_stack",
+        "header_style": "large_title_left_aligned",
+        "task_item_style": "card_flat_border"
+      },
+      "calendar_screen": {
+        "layout": "grid_month_view",
+        "interaction": "tap_to_expand_day"
+      },
+      "summary_screen": {
+        "layout": "bento_grid",
+        "grid_pattern": "grid-cols-2 gap-4",
+        "hero_stat": "col-span-2 aspect-video"
+      }
+    }
+  },
+  "component_guidelines": {
+    "buttons": {
+      "primary": "bg-primary px-6 py-4 rounded-lg flex-row justify-center items-center shadow-sm active:opacity-90",
+      "text_style": "text-white font-bold text-base tracking-wide",
+      "secondary": "bg-surface border border-border px-6 py-4 rounded-lg flex-row justify-center items-center"
+    },
+    "cards": {
+      "base": "bg-surface border border-border p-5 rounded-xl shadow-none",
+      "interactive": "active:bg-surface-highlight transition-colors"
+    },
+    "inputs": {
+      "base": "bg-transparent border-b-2 border-border py-3 px-1 text-lg font-medium focus:border-primary",
+      "label": "text-xs font-bold uppercase text-muted-foreground mb-1"
+    },
+    "checkbox": {
+      "style": "w-6 h-6 rounded-full border-2 border-muted-foreground items-center justify-center",
+      "checked": "bg-primary border-primary",
+      "animation": "scale_spring"
+    }
+  },
+  "assets": {
+    "icons_library": "lucide-react-native or expo-symbols (SF Symbols)",
+    "images": {
+      "morning_routine_template": {
+        "url": "https://images.unsplash.com/photo-1567370515955-fa2f0c5330e8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwbW9ybmluZyUyMGNvZmZlZSUyMHN1bmxpZ2h0fGVufDB8fHx8MTc3MjE0MTk3MXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Minimalist coffee mug morning",
+        "usage": "Cover image for Morning Routine Template card"
+      },
+      "evening_routine_template": {
+        "url": "https://images.unsplash.com/photo-1712951174569-a96cc7e30474?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzZ8MHwxfHNlYXJjaHw0fHxjYWxtJTIwZXZlbmluZyUyMHJlYWRpbmclMjBib29rJTIwbWluaW1hbGlzdHxlbnwwfHx8fDE3NzIxNDE5NzJ8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Open book calm evening",
+        "usage": "Cover image for Evening Routine Template card"
+      },
+      "hero_abstract": {
+        "url": "https://images.unsplash.com/photo-1770321428577-4446e5cb7bab?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NjZ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGJsdWUlMjBnZW9tZXRyaWMlMjBzaGFwZXMlMjAzZHxlbnwwfHx8fDE3NzIxNDE5NzN8MA&ixlib=rb-4.1.0&q=85",
+        "alt": "Abstract Blue Geometric",
+        "usage": "Background for Login/Auth Screen or Empty State"
+      }
+    }
+  },
+  "animation_guidelines": {
+    "library": "react-native-reanimated",
+    "micro_interactions": {
+      "press": "Scale down to 0.96 on pressIn, spring back on pressOut",
+      "task_completion": "Strikethrough text animation + Checkbox fill spring",
+      "list_entry": "FadeInDown with staggered delay"
+    }
+  },
+  "universal_guidelines_for_main_agent": [
+    "Do NOT use 'Inter' for headings. Use a font with more character if possible, or bold system font.",
+    "Do NOT use generic centered layouts. Use left alignment for text to maintain reading flow.",
+    "Use 2-3x more spacing than feels comfortable. 'p-4' is too small; use 'p-6' or 'p-8'.",
+    "Avoid gradients for text. Use solid high-contrast colors.",
+    "Ensure all touch targets are at least 44px by 44px.",
+    "Use Haptics (expo-haptics) for all success actions (checking a box, saving a task).",
+    "Always wrap scrollable areas in ScrollView or FlatList.",
+    "Use SafeAreaView to prevent content from being hidden behind notches/home bars."
+  ]
+}
