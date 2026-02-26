@@ -382,6 +382,28 @@ async def get_weekly_summary(date: str, user: dict = Depends(get_current_user)):
     user_id = user["user_id"]
     dt = datetime.strptime(date, "%Y-%m-%d")
     monday = dt - timedelta(days=dt.weekday())
+    sunday = monday + timedelta(days=6)
+    monday_str = monday.strftime("%Y-%m-%d")
+    sunday_str = sunday.strftime("%Y-%m-%d")
+
+    # Batch query: fetch all tasks and completions for the week in 2 queries (not 14)
+    all_tasks = await db.tasks.find(
+        {"user_id": user_id, "is_active": True}, {"_id": 0}
+    ).to_list(1000)
+
+    all_completions = await db.completions.find(
+        {
+            "user_id": user_id,
+            "date": {"$gte": monday_str, "$lte": sunday_str},
+            "completed": True,
+        },
+        {"_id": 0}
+    ).to_list(10000)
+
+    # Group completions by date
+    comp_by_date: dict = {}
+    for c in all_completions:
+        comp_by_date.setdefault(c["date"], set()).add(c["task_id"])
 
     days = []
     for i in range(7):
@@ -389,25 +411,17 @@ async def get_weekly_summary(date: str, user: dict = Depends(get_current_user)):
         day_str = day.strftime("%Y-%m-%d")
         dow = day.weekday()
 
-        tasks = await db.tasks.find(
-            {
-                "user_id": user_id, "is_active": True,
-                "$or": [
-                    {"type": "daily"},
-                    {"type": "one_off", "date": day_str},
-                    {"type": "specific_days", "repeat_days": dow}
-                ]
-            },
-            {"_id": 0}
-        ).to_list(1000)
+        # Filter tasks applicable for this day in-memory
+        day_tasks = [
+            t for t in all_tasks
+            if t["type"] == "daily"
+            or (t["type"] == "one_off" and t.get("date") == day_str)
+            or (t["type"] == "specific_days" and dow in (t.get("repeat_days") or []))
+        ]
 
-        completions = await db.completions.find(
-            {"user_id": user_id, "date": day_str, "completed": True}, {"_id": 0}
-        ).to_list(1000)
-        completed_ids = {c["task_id"] for c in completions}
-
-        total = len(tasks)
-        completed_count = sum(1 for t in tasks if t["task_id"] in completed_ids)
+        completed_ids = comp_by_date.get(day_str, set())
+        total = len(day_tasks)
+        completed_count = sum(1 for t in day_tasks if t["task_id"] in completed_ids)
 
         days.append({
             "date": day_str,
@@ -417,7 +431,7 @@ async def get_weekly_summary(date: str, user: dict = Depends(get_current_user)):
             "percentage": round(completed_count / total * 100) if total > 0 else 0
         })
 
-    return {"week_start": monday.strftime("%Y-%m-%d"), "days": days}
+    return {"week_start": monday_str, "days": days}
 
 
 @api_router.get("/summary/analytics")
