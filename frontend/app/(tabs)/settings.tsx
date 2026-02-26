@@ -219,6 +219,20 @@ export default function SettingsScreen() {
           <Text style={[styles.logoutText, { color: colors.destructive }]}>Logout</Text>
         </TouchableOpacity>
 
+        {/* About */}
+        <View style={[styles.aboutCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+          <Ionicons name="information-circle-outline" size={22} color={colors.primary} />
+          <View style={styles.aboutInfo}>
+            <Text style={[styles.aboutTitle, { color: colors.textPrimary }]}>RoutineTrack</Text>
+            <Text style={[styles.aboutSub, { color: colors.textSecondary }]}>
+              Created by Harshal G
+            </Text>
+            <Text style={[styles.aboutVersion, { color: colors.textSecondary }]}>
+              Version 1.0.0
+            </Text>
+          </View>
+        </View>
+
         <View style={{ height: 40 }} />
       </ScrollView>
     </SafeAreaView>
